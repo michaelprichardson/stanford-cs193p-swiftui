@@ -6,6 +6,8 @@
 //  Copyright © 2020 Michael Richardson. All rights reserved.
 //
 
+// REF: https://cs193p.sites.stanford.edu/
+
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
@@ -13,15 +15,12 @@ struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
-        HStack {
-            ForEach(viewModel.cards) { card in
-                CardView(card: card)
-//                    .aspectRatio(1, contentMode: .fit)
-                    .aspectRatio(2/3, contentMode: .fit)
-                    .onTapGesture {
-                        self.viewModel.choose(card: card)
-                }
+        Grid(viewModel.cards) { card in
+            CardView(card: card)
+                .onTapGesture {
+                    self.viewModel.choose(card: card)
             }
+            .padding(5)
         }
         .padding()
         .foregroundColor(Color.orange)
@@ -48,7 +47,7 @@ struct CardView: View{
                     .stroke(lineWidth: edgeLineWidth)
                 Text(card.content)
             }
-            else{
+            else if !card.isMatched{
                 RoundedRectangle(cornerRadius: cornerRadius)
                     .fill()
             }

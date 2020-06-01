@@ -12,7 +12,7 @@ class EmojiMemoryGame: ObservableObject {
     
     @Published private var model: MemoryGame<String> = EmojiMemoryGame.creatememoryGame()
     
-    static func creatememoryGame() -> MemoryGame<String> {
+    private static func creatememoryGame() -> MemoryGame<String> {
         let emojis: Array<String> = ["👻", "🎃", "🕷"]
         return MemoryGame<String>(numberOfPairsOfCards: emojis.count) { pairIndex -> String in
             return emojis[pairIndex]
